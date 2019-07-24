@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.xurxodev.moviesandroidkotlin.R
 import com.xurxodev.moviesandroidkotlin.R.id.movies_title_text_view
+import com.xurxodev.movieskotlinkata.App
 import com.xurxodev.movieskotlinkata.data.FakeMovieRepository
+import com.xurxodev.movieskotlinkata.data.MovieRepository
 import com.xurxodev.movieskotlinkata.model.Movie
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CommonPool
@@ -17,6 +19,10 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     lateinit var itemAdapter: ItemAdapter
+
+    private val movieRepository: MovieRepository by lazy {
+        ((application as App).feather.instance(MovieRepository::class.java))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun asyncLoadMovies() = async(CommonPool) {
-        FakeMovieRepository(this@MainActivity).getAll()
+        movieRepository.getAll()
     }
 
     private fun loadingMovies() {

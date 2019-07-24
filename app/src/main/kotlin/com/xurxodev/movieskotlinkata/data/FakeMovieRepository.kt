@@ -1,13 +1,14 @@
 package com.xurxodev.movieskotlinkata.data
 
+import android.app.Application
 import android.content.Context
 import com.xurxodev.moviesandroidkotlin.R
 import com.xurxodev.movieskotlinkata.model.MovieNotFoundException
 import com.xurxodev.movieskotlinkata.model.Movie
 
-class FakeMovieRepository (val context: Context) {
+class FakeMovieRepository (val context: Application) : MovieRepository {
 
-    fun getAll (): List<Movie>{
+    override fun getAll (): List<Movie>{
 
         val baseAddress = context.getString(R.string.base_address)
 
@@ -35,7 +36,7 @@ class FakeMovieRepository (val context: Context) {
 
     }
 
-    fun getById (id: Long): Movie{
+    override fun getById (id: Long): Movie{
 
         val movie = getAll().firstOrNull{it.id == id} ?: throw MovieNotFoundException()
 

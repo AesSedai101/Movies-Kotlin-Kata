@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion "25.0.3"
+
     defaultConfig {
         applicationId "com.xurxodev.movieskotlinkata"
         minSdkVersion 17
@@ -48,7 +48,7 @@ dependencies {
 
     implementation "org.codejargon.feather:feather:1.0"
 
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }
 
 repositories {
