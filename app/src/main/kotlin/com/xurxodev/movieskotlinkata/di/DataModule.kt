@@ -4,6 +4,7 @@ import android.app.Application
 import com.xurxodev.movieskotlinkata.data.FakeMovieRepository
 import com.xurxodev.movieskotlinkata.data.MovieRepository
 import com.xurxodev.movieskotlinkata.view.MovieDetailPresenter
+import com.xurxodev.movieskotlinkata.view.MovieListPresenter
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -14,4 +15,7 @@ import javax.inject.Singleton
 
     @Provides @Singleton
     fun providesMovieDetailPresenter(movieRepository: MovieRepository): MovieDetailPresenter = MovieDetailPresenter(movieRepository)
+
+    @Provides @Singleton
+    fun movieListPresenter(movieRepository: MovieRepository): MovieListPresenter = MovieListPresenter(movieRepository)
 }

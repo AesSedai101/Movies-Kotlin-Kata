@@ -14,9 +14,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
-
-    @Inject lateinit var movieRepository: MovieRepository
+class MovieListActivity : AppCompatActivity(), MovieListPresenter.ViewInterface {
+    @Inject lateinit var movieListPresenter: MovieListPresenter
 
     lateinit var itemAdapter: ItemAdapter
 
@@ -26,9 +25,16 @@ class MainActivity : AppCompatActivity() {
 
         (application as App).moviesComponent.inject(this)
 
+
+        movieListPresenter.attach(this)
+
         initializeRecyclerView()
         initializeRefreshButton()
-        loadMovies()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        movieListPresenter.detach()
     }
 
     private fun initializeRecyclerView() {
@@ -39,37 +45,27 @@ class MainActivity : AppCompatActivity() {
         recycler.adapter = itemAdapter
     }
 
-    private fun initializeRefreshButton() = refresh_button.setOnClickListener { loadMovies() }
+    private fun initializeRefreshButton() = refresh_button.setOnClickListener { movieListPresenter.refresh() }
 
-    private fun loadMovies() {
-        loadingMovies()
-
-        launch(UI) {
-            val movies = asyncLoadMovies().await()
-
-            loadedMovies(movies)
-        }
-    }
-
-    private fun asyncLoadMovies() = async(CommonPool) {
-        movieRepository.getAll()
-    }
-
-    private fun loadingMovies() {
+    override fun clearMovies() {
         itemAdapter.clearMovies();
+    }
+
+    override fun showLoading() {
         pb_loading.visibility = View.VISIBLE
         movies_title_text_view.text =getString(R.string.loading_movies_text);
     }
 
-    private fun loadedMovies(movies: List<Movie>) {
+    override fun setMovies(movies: List<Movie>) {
         itemAdapter.setMovies(movies)
-        pb_loading.visibility = View.GONE
-        refreshTitleWithMoviesCount(movies)
     }
 
-    private fun refreshTitleWithMoviesCount(movies: List<Movie>) {
-        val countText = getString(R.string.movies_count_text)
+    override fun hideLoading() {
+        pb_loading.visibility = View.GONE
+    }
 
-        movies_title_text_view.text = String.format(countText, movies.size)
+    override fun setMovieCount(size: Int) {
+        val countText = getString(R.string.movies_count_text)
+        movies_title_text_view.text = String.format(countText, size)
     }
 }

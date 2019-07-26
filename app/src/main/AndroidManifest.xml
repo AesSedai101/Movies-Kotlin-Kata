@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name="com.xurxodev.movieskotlinkata.App">
-        <activity android:name="com.xurxodev.movieskotlinkata.view.MainActivity">
+        <activity android:name="com.xurxodev.movieskotlinkata.view.MovieListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
