@@ -1,26 +1,34 @@
 package com.xurxodev.movieskotlinkata.view
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.xurxodev.moviesandroidkotlin.R
 import com.xurxodev.movieskotlinkata.App
-import com.xurxodev.movieskotlinkata.data.MovieRepository
 import com.xurxodev.movieskotlinkata.model.Movie
 import kotlinx.android.synthetic.main.activity_detail.*
-import javax.inject.Inject
 import kotlinx.coroutines.CommonPool
 import kotlinx.coroutines.android.UI
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailActivity : AppCompatActivity() {
+class MovieDetailActivity : AppCompatActivity(), MovieDetailPresenter.ViewInterface {
 
     companion object {
-        val EXTRA_ID = "DetailActivity:id"
+        fun getIntent(context: Context, id: Long): Intent? {
+            val intent = Intent(context, MovieDetailActivity::class.java)
+            intent.putExtra(EXTRA_ID, id)
+            return intent;
+        }
+
+        val EXTRA_ID = "MovieDetailActivity:id"
+
     }
 
-    @Inject lateinit var movieRepository: MovieRepository
+    @Inject lateinit var presenter: MovieDetailPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,35 +38,27 @@ class DetailActivity : AppCompatActivity() {
 
         val id = intent.getLongExtra(EXTRA_ID, -1)
 
-        loadMovie(id)
+        presenter.attach(this, id);
     }
 
-
-    private fun loadMovie(id: Long) {
-        loadingMovie()
-
-        launch(UI) {
-            val movies = asyncLoadMovies(id).await()
-
-            loadedMovie(movies)
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.detach()
     }
 
-    private fun asyncLoadMovies(id: Long) = async(CommonPool) {
-        movieRepository.getById(id)
-    }
-
-    private fun loadingMovie() {
+    override fun showLoading() {
         movie_detail_container.visibility = View.GONE
         pb_loading.visibility = View.VISIBLE
     }
 
-    private fun loadedMovie(movie: Movie) {
+    override fun hideLoading() {
         pb_loading.visibility = View.GONE
         movie_detail_container.visibility = View.VISIBLE
+    }
 
-        item_image.loadUrl(movie.url)
-        item_title.text = movie.title
-        item_overview_content.text = movie.overview
+    override fun showMovie(url: String, title: String, overview: String) {
+        item_image.loadUrl(url)
+        item_title.text = title
+        item_overview_content.text = overview
     }
 }

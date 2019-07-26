@@ -1,6 +1,5 @@
 package com.xurxodev.movieskotlinkata.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -34,9 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeRecyclerView() {
         this.itemAdapter = ItemAdapter() { item ->
-            val intent = Intent(this, DetailActivity::class.java)
-            intent.putExtra(DetailActivity.Companion.EXTRA_ID, item.id)
-            startActivity(intent)
+            startActivity(MovieDetailActivity.getIntent(this, item.id))
         }
 
         recycler.adapter = itemAdapter

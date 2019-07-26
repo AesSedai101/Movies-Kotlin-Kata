@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.xurxodev.movieskotlinkata.view.DetailActivity">
+        <activity android:name="com.xurxodev.movieskotlinkata.view.MovieDetailActivity">
 
         </activity>
     </application>

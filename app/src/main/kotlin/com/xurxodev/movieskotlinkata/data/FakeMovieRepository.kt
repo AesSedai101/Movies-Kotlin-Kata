@@ -7,7 +7,7 @@ import com.xurxodev.movieskotlinkata.model.Movie
 
 internal class FakeMovieRepository (val context: Application): MovieRepository {
 
-    fun getAll (): List<Movie>{
+    override fun getAll (): List<Movie>{
 
         val baseAddress = context.getString(R.string.base_address)
 
@@ -35,7 +35,7 @@ internal class FakeMovieRepository (val context: Application): MovieRepository {
 
     }
 
-    fun getById (id: Long): Movie{
+    override fun getById (id: Long): Movie{
 
         val movie = getAll().firstOrNull{it.id == id} ?: throw MovieNotFoundException()
 
