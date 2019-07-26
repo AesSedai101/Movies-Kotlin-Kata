@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.xurxodev.moviesandroidkotlin.R
 import com.xurxodev.movieskotlinkata.App
-import com.xurxodev.movieskotlinkata.data.FakeMovieRepository
+import com.xurxodev.movieskotlinkata.data.MovieRepository
 import com.xurxodev.movieskotlinkata.model.Movie
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CommonPool
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject lateinit var movieRepository: FakeMovieRepository
+    @Inject lateinit var movieRepository: MovieRepository
 
     lateinit var itemAdapter: ItemAdapter
 

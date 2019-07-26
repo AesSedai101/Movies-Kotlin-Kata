@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.xurxodev.moviesandroidkotlin.R
 import com.xurxodev.movieskotlinkata.App
-import com.xurxodev.movieskotlinkata.data.FakeMovieRepository
+import com.xurxodev.movieskotlinkata.data.MovieRepository
 import com.xurxodev.movieskotlinkata.model.Movie
 import kotlinx.android.synthetic.main.activity_detail.*
 import javax.inject.Inject
@@ -20,7 +20,7 @@ class DetailActivity : AppCompatActivity() {
         val EXTRA_ID = "DetailActivity:id"
     }
 
-    @Inject lateinit var movieRepository: FakeMovieRepository
+    @Inject lateinit var movieRepository: MovieRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

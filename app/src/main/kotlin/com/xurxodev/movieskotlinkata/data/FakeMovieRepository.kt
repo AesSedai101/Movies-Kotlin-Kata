@@ -5,7 +5,7 @@ import com.xurxodev.moviesandroidkotlin.R
 import com.xurxodev.movieskotlinkata.model.MovieNotFoundException
 import com.xurxodev.movieskotlinkata.model.Movie
 
-class FakeMovieRepository (val context: Application) {
+internal class FakeMovieRepository (val context: Application): MovieRepository {
 
     fun getAll (): List<Movie>{
 
