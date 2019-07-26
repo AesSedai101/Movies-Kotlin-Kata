@@ -25,11 +25,10 @@ class MovieListActivity : AppCompatActivity(), MovieListPresenter.ViewInterface 
 
         (application as App).moviesComponent.inject(this)
 
-
-        movieListPresenter.attach(this)
-
         initializeRecyclerView()
         initializeRefreshButton()
+
+        movieListPresenter.attach(this)
     }
 
     override fun onDestroy() {
