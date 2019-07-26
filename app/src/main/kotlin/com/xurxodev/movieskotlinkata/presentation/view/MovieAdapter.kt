@@ -1,10 +1,10 @@
-package com.xurxodev.movieskotlinkata.view
+package com.xurxodev.movieskotlinkata.presentation.view
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.xurxodev.moviesandroidkotlin.R
-import com.xurxodev.movieskotlinkata.model.Movie
+import com.xurxodev.movieskotlinkata.domain.entities.Movie
 import kotlinx.android.synthetic.main.activity_movie_detail.view.*
 
 class MovieAdapter(val listener: (Movie) -> Unit) :

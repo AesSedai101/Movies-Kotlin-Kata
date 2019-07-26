@@ -1,4 +1,4 @@
-package com.xurxodev.movieskotlinkata.view
+package com.xurxodev.movieskotlinkata.presentation.view
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import com.squareup.picasso.Picasso
-import java.io.Console
 
 fun Context.toast(text: CharSequence, length: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, text, Toast.LENGTH_SHORT).show()

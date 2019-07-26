@@ -1,13 +1,14 @@
-package com.xurxodev.movieskotlinkata.presenter
+package com.xurxodev.movieskotlinkata.presentation.presenter
 
-import com.xurxodev.movieskotlinkata.model.Movie
-import com.xurxodev.movieskotlinkata.presenter.boundary.MovieRepository
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.launch
+import com.xurxodev.movieskotlinkata.domain.entities.Movie
+import com.xurxodev.movieskotlinkata.domain.boundaries.MovieRepository
+import kotlinx.coroutines.*
+import kotlinx.coroutines.android.Main
+import kotlinx.coroutines.android.UI
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
-class MoviesDetailPresenter(private val movieRepository: MovieRepository) {
+class MoviesDetailPresenter(private val movieRepository: MovieRepository, override val coroutineContext: CoroutineContext = EmptyCoroutineContext): CoroutineScope {
 
     var view: View? = null
 
@@ -24,14 +25,14 @@ class MoviesDetailPresenter(private val movieRepository: MovieRepository) {
     private fun loadMovie(id: Long) {
         loadingMovie()
 
-        launch(UI) {
+        launch(Dispatchers.Main) {
             val movie = asyncLoadMovie(id).await()
 
             showMovie(movie)
         }
     }
 
-    private fun asyncLoadMovie(id: Long) = async(CommonPool) {
+    private fun asyncLoadMovie(id: Long) = async(Dispatchers.Default) {
         movieRepository.getById(id)
     }
 

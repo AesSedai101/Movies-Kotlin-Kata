@@ -1,4 +1,4 @@
-package com.xurxodev.movieskotlinkata.view
+package com.xurxodev.movieskotlinkata.presentation.view
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -6,8 +6,8 @@ import android.view.View
 import com.xurxodev.moviesandroidkotlin.R
 import com.xurxodev.movieskotlinkata.App
 import com.xurxodev.movieskotlinkata.di.module.ActivityModule
-import com.xurxodev.movieskotlinkata.model.Movie
-import com.xurxodev.movieskotlinkata.presenter.MoviesListPresenter
+import com.xurxodev.movieskotlinkata.domain.entities.Movie
+import com.xurxodev.movieskotlinkata.presentation.presenter.MoviesListPresenter
 import kotlinx.android.synthetic.main.activity_movies.*
 import javax.inject.Inject
 
